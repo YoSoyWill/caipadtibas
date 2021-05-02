@@ -1,0 +1,13 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "CAIPAD TIBAS",
+    "description": "",
+    "home_page_url": "https://yosoywill.github.io/caipadtibas",
+    "feed_url": "https://yosoywill.github.io/caipadtibas/feed.json",
+    "user_comment": "",
+    "author": {
+        "name": "caipad"
+    },
+    "items": [
+    ]
+}

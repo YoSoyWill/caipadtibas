@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://yosoywill.github.io/caipadtibas/sitemap.xml
