@@ -17,10 +17,8 @@ var nombre = valores['nombre'];            var edad = valores['edad'];   �
 for(var index in valores)            {                document.write(" clave: "+index+" - valor: "+valores[index]);            }            document.write('<hr>  Te llamas '+ nombre);            document.write(' Tu edad es '+ edad);        }else{                       
 document.write("No se ha recibido ningún parámetro");        }    }    
 </script>
-<script>
-diasHasta({año:2023, mes:12, dia:24} )
-</script>
-</body>
+
+
 <script>
 //final: array {dia, mes,año}
 function diasHasta(final){
@@ -35,4 +33,8 @@ function diasHasta(final){
   console.log("Faltan "+dias+" dias hasta "+fin.toLocaleDateString())
 } 
 </script>
+<script>
+diasHasta({año:2023, mes:12, dia:24} )
+</script>
+</body>
 </html>
