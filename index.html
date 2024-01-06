@@ -29,38 +29,94 @@ var valores=getGET();      
 if(valores)        {            
 //recogemos los valores que nos envia la URL en variables para trabajarcon ellas            
 var nombre = valores['nombre'];            
-var edad = valores['edad'];                
+var familia = valores['familia'];                
 // hacemos un bucle para pasar por cada indice del array de valores            
 for(var index in valores)            {                
 //document.write(" clave: "+index+" - valor: "+valores[index]);            
 }            
 document.write('<hr>  Te llamas '+ nombre);            
-document.write(' Tu edad es '+ edad);        }else{                       
+document.write(' Tu edad es '+ edad);        }else{      
 document.write("No se ha recibido ningún parámetro");        
 }    
 }    
-</script>
 
-
-<script>
-//final: array {dia, mes,año}
-function diasHasta(final){
-   let Hoy=new Date();
-   let fin = new Date(final.año, final.mes, final.dia);
-   let mseg_dia=1000*60*60*24;
-   let dias ;
-   if (Hoy.getMonth()==final.mes && Hoy.getDate()>final.dia) {
-       fin.setFullYear(fin.getFullYear()+1) ;
+   //Elemento contador
+iniciarContador('micontador');
+//Inicia la cuenta atrás
+//bloque es el id del bloque usado para alojar el contador regresivo.
+function iniciarContador(bloque){
+   let hoy = new Date();
+   let ini = hoy.valueOf();
+   let fin = leerFinal(bloque)
+   let tiempo = Math.floor((ini - fin)/1000); //pasar a segundos enteros)
+   let obContador = {timer:null, "tiempo":tiempo};
+   contar(obContador, bloque); //para evitar el delay inicial de 1 segundo
+   obContador.timer = setInterval(contar, 1000, obContador, bloque);
    }
-   dias = Math.ceil((fin.getTime()-Hoy.getTime())/(mseg_dia));
-  console.log("Faltan "+dias+" dias hasta "+fin.toLocaleDateString());
-   document.write("Faltan "+dias+" dias hasta "+fin.toLocaleDateString());
-   <h1>"Hola Tio " nombre " llevas " dias " siendo Tio de la princesa Emma"</h1>
-} 
+//Decrementa el tiempo hasta la fecha final
+//Argumento:  objeto con  temporizador y el tiempo restante
+ function contar(contador, bloque){
+   let partes = [];
+   if(contador.tiempo <= 0){
+      clearInterval(contador.timer);
+      contador.tiempo = 0;  //por si la fecha final ha pasado
+   }
+   else{
+      contador.tiempo--;            
+   }
+  partes = formatTiempo(contador.tiempo);
+  mostrarTiempo(partes, bloque);
+}
+//Convierte el tiempo restante en partes  dias, horas, minutos, segundos
+function formatTiempo(tiempo){ 
+  let dias, partes;
+  [minutos, segundos] = dividir(tiempo, 60);
+  [horas, minutos] = dividir(minutos, 60);
+  [dias, horas] = dividir(horas, 24); 
+  partes = [dias];
+  return partes;
+}
+//divide números enteros devuelve [cociente, resto]
+function dividir(num, den){
+   num = Math.floor(num);
+   let coc = Math.floor(num/den);
+   let resto = num % den;
+   return [coc, resto];
+}
+//Poner en la página web
+//Argumento : array dias,horas,minutos,segundos
+//Partes estarán dentro del bloque contador
+function mostrarTiempo(partes, bloque){
+   let bloques  = document.querySelectorAll("#"+bloque+" .dig span");
+   for(let i=0; i < bloques.length; i++){
+      bloques[i].innerHTML = partes[i].toString().padStart(2,0);
+   }
+ }
+//Lee el valor de  fecha final desde un elemento con id = contador
+//devuelve fecha final como valor
+//formato de fecha año-mes-dia o año/mes/dia
+function leerFinal(bloque){
+   let fecha;
+   let milisec = 0;
+   let datos = document.getElementById(bloque);
+   datos = datos.dataset.final;
+   fecha = new Date(datos);
+   if (!isNaN(fecha.valueOf())){
+      fecha = new Date(fecha);
+     milisec = fecha.valueOf();
+   }
+   return milisec;
+ }
 </script>
-<script>
-diasHasta({año:2026, mes:12, dia:24} )
-</script>
-   <h1>"Hola Tio " nombre " llevas " dias " siendo Tio de la princesa Emma"</h1>
+<H1>"Hola " familia + nombre</H1>
+<h1>"Hoy es día"</h1>
+<div id="micontador" data-final="2023/12/24">
+   <div class="num">
+      <div class="dig"><span>&nbsp;</span></div>
+      <div class="label">Días</div>
+   </div>
+<h1>"siendo " familia " de la princesa Emma"</h1>
+
+
 </body>
 </html>
