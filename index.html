@@ -5,6 +5,7 @@
 <title>Document</title>
 </head>
 <body>  <script>     /**    * Funcion que captura las variables pasados por GET    * Devuelve un array de clave=>valor    */    
+
 function getGET()    {        
 // capturamos la url        
 var loc = document.location.href;        
@@ -23,7 +24,7 @@ get[tmp[0]] = unescape(decodeURI(tmp[1]));          
 return get;        
 }    
 }    
-window.onload = function()    {        
+window.addEventListener("load", function()    {        
 // Cogemos los valores pasados por get        
 var valores=getGET();        
 if(valores)        {            
@@ -37,7 +38,7 @@ for(var index in valores)            {              
 
      
 }    
-}    
+}   ) 
 
 function persona(){
 document.write(nombre);
