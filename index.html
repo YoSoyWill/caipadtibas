@@ -33,10 +33,11 @@ var familia = valores['familia'];              
 // hacemos un bucle para pasar por cada indice del array de valores            
 for(var index in valores)            {                
 //document.write(" clave: "+index+" - valor: "+valores[index]);            
-}            
-document.write('<hr>  Te llamas '+ nombre);            
-document.write(' Tu edad es '+ edad);        }else{      
-document.write("No se ha recibido ningún parámetro");        
+}    
+function persona(){
+document.write(nombre);
+}
+     
 }    
 }    
 
@@ -108,7 +109,7 @@ function leerFinal(bloque){
    return milisec;
  }
 </script>
-<H1>"Hola " familia + nombre</H1>
+<H1>Hola  <script>persona(nombre)</script></H1>
 <h1>"Hoy es día"</h1>
 <div id="micontador" data-final="2023/12/24">
    <div class="num">
