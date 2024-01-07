@@ -28,7 +28,7 @@ window.onload = function()    {      
 var valores=getGET();        
 if(valores)        {            
 //recogemos los valores que nos envia la URL en variables para trabajarcon ellas            
-var nombre = "will";            
+var nombre = valores['nombre'];            
 var familia = valores['familia'];                
 // hacemos un bucle para pasar por cada indice del array de valores            
 for(var index in valores)            {                
@@ -38,7 +38,7 @@ for(var index in valores)            {              
      
 }    
 }    
-var nombre ="2ill";
+
 function persona(){
 document.write(nombre);
 }
