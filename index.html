@@ -1,125 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>    
-<meta charset="UTF-8">    
-<title>Document</title>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capturar parámetros de una URL con JS</title>
 </head>
-<body>  <script>     /**    * Funcion que captura las variables pasados por GET    * Devuelve un array de clave=>valor    */    
-
-function getGET()    {        
-// capturamos la url        
-var loc = document.location.href;        
-// si existe el interrogante        
-if(loc.indexOf('?')>0)        {           
-// cogemos la parte de la url que hay despues del interrogante            
-var getString = loc.split('?')[1];           
-// obtenemos un array con cada clave=valor            
-var GET = getString.split('&');            
-var get = {};            
-// recorremos todo el array de valores            
-for(var i = 0, l = GET.length; i < l; i++){                
-var tmp = GET[i].split('=');                
-get[tmp[0]] = unescape(decodeURI(tmp[1]));            
-}            
-return get;        
-}    
-}    
-window.addEventListener("load", function()    {        
-// Cogemos los valores pasados por get        
-var valores=getGET();        
-if(valores)        {            
-//recogemos los valores que nos envia la URL en variables para trabajarcon ellas            
-var nombre = valores['nombre'];            
-var familia = valores['familia'];                
-// hacemos un bucle para pasar por cada indice del array de valores            
-for(var index in valores)            {                
-//document.write(" clave: "+index+" - valor: "+valores[index]);            
-}    
-
-     
-}    
-}   ) 
-
-function persona(){
-document.write(nombre);
-}
-   //Elemento contador
-iniciarContador('micontador');
-//Inicia la cuenta atrás
-//bloque es el id del bloque usado para alojar el contador regresivo.
-function iniciarContador(bloque){
-   let hoy = new Date();
-   let ini = hoy.valueOf();
-   let fin = leerFinal(bloque)
-   let tiempo = Math.floor((ini - fin)/1000); //pasar a segundos enteros)
-   let obContador = {timer:null, "tiempo":tiempo};
-   contar(obContador, bloque); //para evitar el delay inicial de 1 segundo
-   obContador.timer = setInterval(contar, 1000, obContador, bloque);
-   }
-//Decrementa el tiempo hasta la fecha final
-//Argumento:  objeto con  temporizador y el tiempo restante
- function contar(contador, bloque){
-   let partes = [];
-   if(contador.tiempo <= 0){
-      clearInterval(contador.timer);
-      contador.tiempo = 0;  //por si la fecha final ha pasado
-   }
-   else{
-      contador.tiempo--;            
-   }
-  partes = formatTiempo(contador.tiempo);
-  mostrarTiempo(partes, bloque);
-}
-//Convierte el tiempo restante en partes  dias, horas, minutos, segundos
-function formatTiempo(tiempo){ 
-  let dias, partes;
-  [minutos, segundos] = dividir(tiempo, 60);
-  [horas, minutos] = dividir(minutos, 60);
-  [dias, horas] = dividir(horas, 24); 
-  partes = [dias];
-  return partes;
-}
-//divide números enteros devuelve [cociente, resto]
-function dividir(num, den){
-   num = Math.floor(num);
-   let coc = Math.floor(num/den);
-   let resto = num % den;
-   return [coc, resto];
-}
-//Poner en la página web
-//Argumento : array dias,horas,minutos,segundos
-//Partes estarán dentro del bloque contador
-function mostrarTiempo(partes, bloque){
-   let bloques  = document.querySelectorAll("#"+bloque+" .dig span");
-   for(let i=0; i < bloques.length; i++){
-      bloques[i].innerHTML = partes[i].toString().padStart(2,0);
-   }
- }
-//Lee el valor de  fecha final desde un elemento con id = contador
-//devuelve fecha final como valor
-//formato de fecha año-mes-dia o año/mes/dia
-function leerFinal(bloque){
-   let fecha;
-   let milisec = 0;
-   let datos = document.getElementById(bloque);
-   datos = datos.dataset.final;
-   fecha = new Date(datos);
-   if (!isNaN(fecha.valueOf())){
-      fecha = new Date(fecha);
-     milisec = fecha.valueOf();
-   }
-   return milisec;
- }
-</script>
-<H1>Hola  <script>persona(nombre)</script></H1>
-<h1>"Hoy es día"</h1>
-<div id="micontador" data-final="2023/12/24">
-   <div class="num">
-      <div class="dig"><span>&nbsp;</span></div>
-      <div class="label">Días</div>
-   </div>
-<h1>"siendo " familia " de la princesa Emma"</h1>
-
-
+<body>
+    <div id="divNombre"></div>
+    <div id="divEdad"></div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const nombre = urlParams.get("nombre");
+        const edad = urlParams.get("edad");
+        var divNombre = document.getElementById('divNombre');
+        divNombre.innerHTML = nombre;
+        var divEdad = document.getElementById('divEdad');
+        divEdad.innerHTML = edad;
+    </script>
 </body>
 </html>
