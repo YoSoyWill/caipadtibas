@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <title>Calculadora simple</title>
+</head>
+<body>
+  <h1>Form Emma</h1>
+
+  <form>
+    <input type="text" name="names" placeholder="Nombre">
+    <input type="text" name="family" placeholder="Familia">
+    <button type="button" onclick="calcular()">Magia</button>
+  </form>
+
+  <div id="resultado"></div>
+  <button type="button" onclick="compartirWhatsApp()">Compartir por WhatsApp</button>
+  <button type="button" onclick="abrirNuevaPestaña()">Abrir en nueva pestaña</button>
+
+
+
+  <script>
+    function calcular() {
+      // Obtenemos los valores de los campos de texto
+      const names = document.querySelector("input[name='names']").value;
+      const family = document.querySelector("input[name='family']").value;
+
+      // Realizamos la operación
+      const resultado = "https://yosoywill.github.io/caipadtibas/?" + "nombre=" + names + "&amp;" +"fam=" + family;
+
+      // Mostramos el resultado
+      document.querySelector("#resultado").innerHTML = resultado;
+    }
+    
+    function compartirWhatsApp() {
+  // Obtenemos el resultado
+  const resultado = document.querySelector("#resultado").innerHTML;
+
+  // Creamos el mensaje de WhatsApp
+  const mensaje = `Averigua cuantos días tiene la princesa Emma en tu vida ${resultado}`;
+
+  // Abrimos WhatsApp
+  window.open("https://api.whatsapp.com/send?text=" + mensaje);
+}
+function abrirNuevaPestaña() {
+  // Obtenemos el resultado
+  const resultado = document.querySelector("#resultado").innerHTML;
+
+  // Abrimos una nueva pestaña
+  window.open(resultado);
+}
+  </script>
+</body>
+</html>
