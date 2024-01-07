@@ -71,8 +71,15 @@ document.getElementById('divDays').innerHTML = daysbtw();
   function daysbtw(){   
   var day1 = new Date('12/24/2023');
 var day2 = new Date();
+let day = day2.getDate();
+let month = day2.getMonth() + 1;
+let year = day2.getFullYear();
 
-var difference = Math.abs(day2 - day1);
+// This arrangement can be altered based on how we want the date's format to appear.
+let currentDate = `${day}-${month}-${year}`;
+
+
+var difference = Math.abs(currentDate - day1);
 var days = difference / (1000 * 3600 * 24);
    return days
   }
