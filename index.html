@@ -1,87 +1,51 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Emmita</title>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Glass+Antiqua&display=swap" rel="stylesheet">
+<head>
 <style>
-body,h1, h2 {font-family: 'Glass Antiqua', cursive;}
-body, html {height: 100%}
-  
-body {
-  background-image: url('https://img.freepik.com/vector-premium/patron-princesa-linda-rosa-fondo-transparente-corona-rosa-estrellas-doradas-sobre-fondo-blanco-puede-utilizar-rellenos-patron-papel-tapiz-texturas-superficiales-fondo-pagina-web-ilustracion-vectorial_166089-850.jpg');
-  min-height: 50%;
-  background-position: center;
-  background-size: cover;
-  background-repeat: repeat;
-}
-      .external {
-        display: table;
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-      }
-      .middle {
-        display: table-cell;
-        vertical-align: middle;
-      }
-      .internal {
-        margin-left: auto;
-        margin-right: auto;
-        width: 400px;
-      }
+.layout {
+  width: 100%;
 
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+
+  justify-content: space-evenly;
+  align-items: center;
+}
 </style>
 </head>
-<body onload="javascript:alterText()">
+<body>
+<div class="layout" id="datos">
 
-<div class="w3-padding-64 w3-display-container w3-animate-opacity">
-      <div class="external">
-      <div class="middle">
-        <div class="internal"> 
-  <h1 class="w3-round-xlarge w3-center">Hola</h1>
-    <h1 class="w3-round-xlarge w3-center" id="divNombre"><b></b></H1>
-    <h2 class="w3-round-xlarge w3-center">Llevas</h2>
-
-    <h1 class="w3-center w3-pink w3-jumbo" id="divDays"></H1>
-          <h1 class="w3-round-xlarge w3-center w3-pink-text"><b>días</b></h1>
-    <h2 class="w3-round-xlarge w3-center">siendo</h2>
-    <h1 class="w3-round-xlarge w3-center" id="divFam"></H1>
-    <h1 class="w3-round-xlarge w3-center w3-text-pink"><b>de la princesa </b></h1>
-        <h1 class="w3-round-xlarge w3-center w3-text-pink w3-jumbo"><b>Emma Samanta</b></h1>
-          </div>
-      </div>
-    </div>
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const nombre = urlParams.get("nombre");
-        const fam = urlParams.get("fam");
-        var divNombre = document.getElementById('divNombre');
-        divNombre.innerHTML = nombre;
-        var divFam = document.getElementById('divFam');
-        divFam.innerHTML = fam;
-
-        function alterText(){
-document.getElementById('divDays').innerHTML = daysbtw();
-}
-  function daysbtw(){   
-  var day1 = new Date('12/24/2023');
-var day2 = new Date();
-
-var difference = Math.abs(day2 - day1);
-var days = difference / (1000 * 3600 * 24);
-    var days = Math.ceil(days);
-   return days
-  }
-    </script>
-</body>
+<div id="datos">
 </div>
 
+<script>
+  const archivoCSV = document.getElementById("archivoCSV");
+
+  archivoCSV.addEventListener("change", async () => {
+    // Obtenemos el archivo CSV seleccionado
+    const archivo = await archivoCSV.files[0];
+
+    // Leemos los datos del archivo CSV
+    const objetos = await leerCSV(archivo);
+
+    // Creamos un nuevo DIV para cada registro
+    for (const objeto of objetos) {
+      const div = document.createElement("div");
+      div.classList.add("personalizado");
+      div.innerHTML = `
+        <h2>${objeto.nombre} ${objeto.apellido}</h2>
+        <p>Teléfono: ${objeto.telefono}</p>
+        <p>Dirección: ${objeto.dirección}</p>
+        <p>Correo electrónico: ${objeto.correo electrónico}</p>
+      `;
+      document.getElementById("datos").appendChild(div);
+    }
+  });
+</script>
+
 </body>
-</html>
+</html> 
