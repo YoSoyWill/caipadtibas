@@ -23,28 +23,47 @@
 </div>
 
 <script>
-  const archivoCSV = document.getElementById("archivoCSV");
+// Función para leer el archivo CSV
+function leerArchivoCSV() {
+  // Abrimos el archivo CSV
+  const datos = fs.readFileSync("datos.csv", "utf-8");
 
-  archivoCSV.addEventListener("change", async () => {
-    // Obtenemos el archivo CSV seleccionado
-    const archivo = await archivoCSV.files[0];
+  // Leemos los datos del archivo
+  const objetos = csv.parse(datos);
 
-    // Leemos los datos del archivo CSV
-    const objetos = await leerCSV(archivo);
+  return objetos;
+}
 
-    // Creamos un nuevo DIV para cada registro
-    for (const objeto of objetos) {
-      const div = document.createElement("div");
-      div.classList.add("personalizado");
-      div.innerHTML = `
-        <h2>${objeto.nombre} ${objeto.apellido}</h2>
-        <p>Teléfono: ${objeto.telefono}</p>
-        <p>Dirección: ${objeto.dirección}</p>
-        <p>Correo electrónico: ${objeto.correo electrónico}</p>
-      `;
-      document.getElementById("datos").appendChild(div);
-    }
-  });
+// Función para crear un nuevo DIV
+function crearDiv(objeto) {
+  const div = document.createElement("div");
+  div.classList.add("personalizado");
+  div.innerHTML = `
+    <h2>${objeto.nombre} ${objeto.apellido}</h2>
+    <p>Teléfono: ${objeto.telefono}</p>
+    <p>Dirección: ${objeto.dirección}</p>
+    <p>Correo electrónico: ${objeto.correo electrónico}</p>
+  `;
+  return div;
+}
+
+// Función principal
+function main() {
+  // Leemos los datos del archivo CSV
+  const objetos = leerArchivoCSV();
+
+  // Creamos un nuevo DIV para cada registro
+  for (const objeto of objetos) {
+    // Creamos un nuevo DIV
+    const div = crearDiv(objeto);
+
+    // Agregamos el DIV al DOM
+    document.getElementById("datos").appendChild(div);
+  }
+}
+
+// Llamamos a la función principal
+main();
 </script>
 
 </body>
